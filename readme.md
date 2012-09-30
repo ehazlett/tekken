@@ -9,4 +9,4 @@ Tekken requires MongoDB and Redis.  The default configuration assumes MongoDB is
 * `pip install -r requirements.txt`
 * `./test_unit.sh`
 * `python application.py`
-* open browser to (or curl) http://localhost:5000/
+* Browse http://localhost:5000/

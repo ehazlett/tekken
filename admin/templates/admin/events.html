@@ -1,0 +1,62 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<div>
+  <table class="table table-striped table-bordered">
+    {% if events %}
+    <thead>
+      <tr>
+        <th>{{_('Date')}}</th>
+        <th>{{_('Status')}}</th>
+        <th>{{_('Client')}}</th>
+        <th>{{_('Check')}}</th>
+        <th>{{_('Occurrences')}}</th>
+        <th>{{_('Output')}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    {% endif %}
+    {% for event in events %}
+    <tr>
+        <td width="10%">{{event.issued|date_from_timestamp}}</td>
+        <td>{{event.status|sensu_status_name}}</td>
+        <td>{{event.client}}</td>
+        <td>{{event.check}}</td>
+        <td>{{event.occurrences}}</td>
+        <td>{{event.output.replace('\t', ' ')}}</td>
+        <td><a class="btn-resolve-event" rel="tooltip" title="Resolve" data-client="{{event.client}}" data-check="{{event.check}}"><i class="icon-ok"></i></a></td>
+    </tr>
+    {% else %}
+    <tr><td>{{_('There are no events.')}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script type="text/javascript">
+  $("a.btn-resolve-event").click(function(){
+    if (confirm("{{_('Resolve check?')}}")) {
+      var data = {
+        "client": this.getAttribute('data-client'),
+        "check": this.getAttribute('data-check'),
+      }
+      $.ajax({
+        type: 'POST',
+        url: '{{sensu_api_url}}/event/resolve',
+        data: JSON.stringify(data),
+        success: function() {
+          // redirect
+          window.location.replace('/admin/events/');
+        },
+        error: function() {
+          // sensu returns a 202 which jquery apparently doesn't mark as "success"
+          // redirect anyway
+          window.location.replace('/admin/events/');
+        }
+      });
+    }
+  });
+  $(function(){
+    $("li#admin-nav-events").addClass('active');
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<div>
+  <table class="table table-striped table-bordered">
+    {% if checks %}
+    <thead>
+      <tr>
+        <th>{{_('Name')}}</th>
+        <th>{{_('Command')}}</th>
+        <th>{{_('Subscribers')}}</th>
+        <th>{{_('Interval')}}</th>
+      </tr>
+    </thead>
+    {% endif %}
+    {% for check in checks %}
+    <tr>
+        <td>{{check.name}}</td>
+        <td>{{check.command}}</td>
+        <td>{{check.subscribers|join(', ')}}</td>
+        <td>{{check.interval}}</td>
+    </tr>
+    {% else %}
+    <tr><td>{{_('There are no checks.')}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script type="text/javascript">
+ $(function(){
+  $("li#admin-nav-checks").addClass('active');
+ });
+</script>
+{% endblock %}

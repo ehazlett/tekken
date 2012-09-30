@@ -1,0 +1,88 @@
+#!/usr/bin/env python
+# Copyright 2012 Tekken Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+from flask import json, current_app
+import requests
+
+URL_BASE = '{0}'
+
+def _request(path='', method='get', data=None, username=None):
+    """
+    Wrapper function for Sensu API requests
+
+    :param path: URL to request
+    :param method: HTTP method
+    :param data: Data for post (ignored for GETs)
+    :param username: (optional) User for which to proxy
+
+    """
+    method = method.lower()
+    headers = {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+    }
+    methods = {
+        'get': requests.get,
+        'post': requests.post,
+    }
+    url = '{0}{1}'.format(URL_BASE.format(current_app.config.get('SENSU_API_URL')), path)
+    return methods[method](url, data=json.dumps(data), headers=headers)
+
+def get_info():
+    """
+    Gets Sensu server info
+
+    """
+    r = _request('/info')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
+def get_events():
+    """
+    Gets the current Sensu events
+
+    """
+    r = _request('/events')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
+def get_clients():
+    """
+    Gets the Sensu clients
+
+    """
+    r = _request('/clients')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
+def get_checks():
+    """
+    Gets the Sensu checks
+
+    """
+    r = _request('/checks')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data

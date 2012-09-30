@@ -1,0 +1,122 @@
+@media (max-width: 480px) {
+  div#admin div.navbar {
+    margin-top: -35px;
+  }
+}
+@media (max-width: 767px) {
+  div#admin div.navbar {
+    margin-top: -35px;
+  }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  .navbar .brand {
+    margin-left: -25px;
+  }
+  div.content {
+    margin-top: 50px;
+    min-height: 325px;
+  }
+  div#admin div.navbar {
+    margin: -60px 0 0 0;
+    padding: 0px;
+  }
+  div.row {
+    margin: 0 -20px 0 -20px;
+  }
+}
+@media (min-width: 980px) and (max-width: 1199px) {
+  .navbar .brand {
+    margin-left: -25px;
+  }
+  div.content {
+    margin-top: 50px;
+    min-height: 325px;
+  }
+  div#admin div.navbar {
+    margin: 40px 0 0 0;
+  }
+  div#admin-content {
+    margin: 40px 0 0 0;
+  }
+}
+@media (min-width: 1200px) {
+  .navbar .brand {
+    margin-left: -25px;
+  }
+  div.content {
+    margin-top: 50px;
+    min-height: 325px;
+  }
+  div#admin div.navbar {
+    margin: 40px 0 0 0;
+  }
+  div#admin-content {
+    margin: 40px 0 0 0;
+  }
+}
+div#admin div.navbar {
+  z-index: 900;
+}
+div.content div.toolbar {
+  margin: 0 0 15px 0;
+}
+body {
+  color: #7a7a7a;
+  font-family: 'Pontano Sans', sans-serif;
+}
+hide {
+  display: none;
+}
+.center {
+  margin: 0px auto 0px auto;
+  text-align: center;
+}
+.alert {
+  position: fixed;
+  overflow: visible;
+  top: 45px;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin: 0 5px 0 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.banner {
+  position: relative;
+  top: 30px;
+  width: 550px;
+  min-height: 200px;
+  font-family: 'Nothing You Could Do', sans-serif;
+}
+.well {
+  border: 1px solid #d5d5d5;
+}
+div.content {
+  font-family: 'Rosario', sans-serif;
+}
+footer {
+  margin: 60px auto 10px auto;
+  width: 100%;
+  color: #b3b3b3;
+  text-align: center; /* center align it with the container */
+}
+div.welcome {
+  text-align: center;
+  width: 60%;
+  font-size: 36px;
+  margin: 0 auto 0 auto;
+  padding: 50px;
+}
+div.welcome img {
+  margin-bottom: 20px;
+}
+div#login, div#signup {
+  text-align: center;
+}
+.section-title {
+  margin-bottom: 10px;
+}
+label.error {
+  color: #b20000
+}

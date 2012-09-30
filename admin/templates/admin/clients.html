@@ -1,0 +1,34 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<div>
+  <table class="table table-striped table-bordered">
+    {% if clients %}
+    <thead>
+      <tr>
+        <th>{{_('Name')}}</th>
+        <th>{{_('Host')}}</th>
+        <th>{{_('Last Checkin')}}</th>
+        <th>{{_('Subscriptions')}}</th>
+      </tr>
+    </thead>
+    {% endif %}
+    {% for client in clients %}
+    <tr>
+        <td>{{client.name}}</td>
+        <td>{{client.address}}</td>
+        <td>{{client.timestamp|date_from_timestamp}}</td>
+        <td>{{client.subscriptions|join(', ')}}</td>
+    </tr>
+    {% else %}
+    <tr><td>{{_('There are no clients.')}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script type="text/javascript">
+ $(function(){
+  $("li#admin-nav-clients").addClass('active');
+ });
+</script>
+{% endblock %}

@@ -9,3 +9,5 @@ Tekken requires MongoDB and Redis.  The default configuration assumes MongoDB is
 * `pip install -r requirements.txt`
 * `python application.py`
 * Browse http://localhost:5000/
+
+View a couple screenshots [here](https://github.com/ehazlett/tekken/wiki/screenshots)

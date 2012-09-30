@@ -50,8 +50,8 @@ app.config['redis'] = redis
 app.config['mail'] = mail
 
 # check for admin user
-if not db.get_admin({'username': 'admin'}):
-    db.create_admin('admin', 'tekken')
+if not db.get_user({'username': 'admin'}):
+    db.create_user(username='admin', password='tekken', is_admin=True)
     print('Admin user created: username: admin password: tekken')
 
 # ----- context processors
@@ -103,7 +103,7 @@ def create_admin():
                 break
             else:
                 print('Passwords do not match... Try again...')
-        db.create_admin(username=username, password=password)
+        db.create_user(username=username, password=password)
         print('Admin created/updated successfully...')
     except KeyboardInterrupt:
         pass

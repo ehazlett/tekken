@@ -15,7 +15,7 @@
 from flask import Blueprint
 from flask import (request, render_template, jsonify, g, flash, redirect,
     url_for, session, current_app, Response, json)
-from decorators import admin_required
+from decorators import login_required
 from bson import json_util
 from utils import db, send_mail, hash_text, MongoPaginator, get_redis_connection, \
     sensu
@@ -26,12 +26,12 @@ bp = admin_blueprint = Blueprint('admin', __name__,
     template_folder='templates')
 
 @bp.route('/')
-@admin_required
+@login_required
 def index():
     return redirect(url_for('admin.events'))
 
 @bp.route('/events/')
-@admin_required
+@login_required
 def events():
     ctx = {
         'events': sensu.get_events(),
@@ -39,7 +39,7 @@ def events():
     return render_template('admin/events.html', **ctx)
 
 @bp.route('/clients/')
-@admin_required
+@login_required
 def clients():
     ctx = {
         'clients': sensu.get_clients(),
@@ -47,7 +47,7 @@ def clients():
     return render_template('admin/clients.html', **ctx)
 
 @bp.route('/checks/')
-@admin_required
+@login_required
 def checks():
     ctx = {
         'checks': sensu.get_checks(),

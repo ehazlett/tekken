@@ -20,5 +20,7 @@ EXISTING_USER = gettext('There is already a user registered with that username.'
 INVALID_USERNAME_PASSWORD = gettext('Invalid or unspecified username or password')
 LOGGED_OUT = gettext('You are now logged out')
 MISSING_USERNAME_OR_PASSWORD = gettext('Missing username or password')
+PASSWORDS_NOT_MATCH = gettext('Passwords do not match')
+PASSWORD_UPDATED = gettext('Password updated')
 UNKNOWN_NODE = gettext('Unknown node specified')
 USER_CREATED = gettext('User created')

@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<div>
+  <table class="table table-striped table-bordered">
+    {% if stashes %}
+    <thead>
+      <tr>
+        <th>{{_('Path')}}</th>
+      </tr>
+    </thead>
+    {% endif %}
+    {% for stash in stashes %}
+    <tr>
+        <td>{{stash}}</td>
+    </tr>
+    {% else %}
+    <tr><td>{{_('There are no stashes.')}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script type="text/javascript">
+ $(function(){
+  $("li#admin-nav-stashes").addClass('active');
+ });
+</script>
+{% endblock %}

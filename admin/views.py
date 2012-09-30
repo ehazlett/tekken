@@ -54,3 +54,10 @@ def checks():
     }
     return render_template('admin/checks.html', **ctx)
 
+@bp.route('/stashes/')
+@login_required
+def stashes():
+    ctx = {
+        'stashes': sensu.get_stashes(),
+    }
+    return render_template('admin/stashes.html', **ctx)

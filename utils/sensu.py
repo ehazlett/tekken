@@ -86,3 +86,15 @@ def get_checks():
     except:
         data = {}
     return data
+
+def get_stashes():
+    """
+    Gets the Sensu stashes
+
+    """
+    r = _request('/stashes')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data

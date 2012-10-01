@@ -42,7 +42,7 @@ def login():
     ctx = {}
     return render_template('accounts/login.html', **ctx)
 
-@admin_required
+@login_required
 @bp.route('/change-password/', methods=['GET', 'POST'])
 def change_password():
     if request.method == 'POST':

@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>{{_('Name')}}</th>
-        <th>{{_('Host')}}</th>
+        <th class="hidden-phone">{{_('Host')}}</th>
         <th>{{_('Last Checkin')}}</th>
         <th>{{_('Subscriptions')}}</th>
       </tr>
@@ -16,7 +16,7 @@
     {% for client in clients %}
     <tr>
         <td>{{client.name}}</td>
-        <td>{{client.address}}</td>
+        <td class="hidden-phone">{{client.address}}</td>
         <td>{{client.timestamp|date_from_timestamp}}</td>
         <td>{{client.subscriptions|join(', ')}}</td>
     </tr>

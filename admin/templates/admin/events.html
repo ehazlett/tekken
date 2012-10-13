@@ -10,8 +10,8 @@
         <th>{{_('Status')}}</th>
         <th>{{_('Client')}}</th>
         <th>{{_('Check')}}</th>
-        <th>{{_('Occurrences')}}</th>
-        <th>{{_('Output')}}</th>
+        <th><span class="hidden-phone">{{_('Occurrences')}}</span><span class="visible-phone">#</span></th>
+        <th class="hidden-phone hidden-tablet">{{_('Output')}}</th>
         <th></th>
       </tr>
     </thead>
@@ -23,7 +23,7 @@
         <td>{{event.client}}</td>
         <td>{{event.check}}</td>
         <td>{{event.occurrences}}</td>
-        <td>{{event.output.replace('\t', ' ')}}</td>
+        <td class="hidden-phone hidden-tablet">{{event.output.replace('\t', ' ')}}</td>
         <td><a class="btn-resolve-event" rel="tooltip" title="Resolve" data-client="{{event.client}}" data-check="{{event.check}}"><i class="icon-ok"></i></a></td>
     </tr>
     {% else %}

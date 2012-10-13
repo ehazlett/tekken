@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>{{_('Name')}}</th>
-        <th>{{_('Command')}}</th>
+        <th class="hidden-phone">{{_('Command')}}</th>
         <th>{{_('Subscribers')}}</th>
         <th>{{_('Interval')}}</th>
       </tr>
@@ -16,7 +16,7 @@
     {% for check in checks %}
     <tr>
         <td>{{check.name}}</td>
-        <td>{{check.command}}</td>
+        <td class="hidden-phone">{{check.command}}</td>
         <td>{{check.subscribers|join(', ')}}</td>
         <td>{{check.interval}}</td>
     </tr>

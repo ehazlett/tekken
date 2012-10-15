@@ -24,7 +24,10 @@
         <td>{{event.check}}</td>
         <td>{{event.occurrences}}</td>
         <td class="hidden-phone hidden-tablet">{{event.output.replace('\t', ' ')}}</td>
-        <td><a class="btn-resolve-event" rel="tooltip" title="Resolve" data-client="{{event.client}}" data-check="{{event.check}}"><i class="icon-ok"></i></a></td>
+        <td>
+          <a class="btn-resolve-event" rel="tooltip" title="{{_('Resolve')}}" data-client="{{event.client}}" data-check="{{event.check}}"><i class="icon-ok"></i></a>
+          <a class="btn-stash-event" rel="tooltip" title="{{_('Stash')}}" data-client="{{event.client}}" data-check="{{event.check}}"><i class="icon-list-alt"></i></a>
+        </td>
     </tr>
     {% else %}
     <tr><td>{{_('There are no events.')}}</td></tr>
@@ -42,15 +45,40 @@
       $.ajax({
         type: 'POST',
         url: '{{sensu_api_url}}/event/resolve',
+        contentType: 'application/json',
         data: JSON.stringify(data),
         success: function() {
           // redirect
-          window.location.replace('/admin/events/');
+          window.location.replace("{{url_for('admin.events')}}");
         },
         error: function() {
           // sensu returns a 202 which jquery apparently doesn't mark as "success"
           // redirect anyway
-          window.location.replace('/admin/events/');
+          window.location.replace("{{url_for('admin.events')}}");
+        }
+      });
+    }
+  });
+  $("a.btn-stash-event").click(function(){
+    if (confirm("{{_('Stash event?')}}")) {
+      var data = {
+        "client": this.getAttribute('data-client'),
+        "check": this.getAttribute('data-check'),
+      }
+      var key = 'silence/' + data.client + '/' + data.check;
+      var payload = {
+        "key": key,
+        "description": "Tekken stash"
+      }
+      console.log(data);
+      $.ajax({
+        type: 'POST',
+        url: "{{url_for('admin.stash')}}",
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function() {
+          // redirect
+          window.location.replace("{{url_for('admin.stashes')}}");
         }
       });
     }

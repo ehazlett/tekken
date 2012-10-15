@@ -7,12 +7,16 @@
     <thead>
       <tr>
         <th>{{_('Path')}}</th>
+        <th></th>
       </tr>
     </thead>
     {% endif %}
     {% for stash in stashes %}
     <tr>
         <td>{{stash}}</td>
+        <td width="5%">
+          <a class="btn-delete-stash" rel="tooltip" title="{{_('Delete')}}" data-key="{{stash}}"><i class="icon-trash"></i></a>
+        </td>
     </tr>
     {% else %}
     <tr><td>{{_('There are no stashes.')}}</td></tr>
@@ -21,8 +25,25 @@
 </div>
 
 <script type="text/javascript">
- $(function(){
-  $("li#admin-nav-stashes").addClass('active');
- });
+  $("a.btn-delete-stash").click(function(){
+    if (confirm("{{_('Delete stash?')}}")) {
+      var payload = {
+        "key": this.getAttribute('data-key')
+      }
+      $.ajax({
+        type: 'POST',
+        url: "{{url_for('admin.delete_stash')}}",
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function() {
+          // redirect
+          window.location.replace("{{url_for('admin.stashes')}}");
+        }
+      });
+    }
+  });
+  $(function(){
+    $("li#admin-nav-stashes").addClass('active');
+  });
 </script>
 {% endblock %}

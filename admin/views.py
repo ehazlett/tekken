@@ -61,3 +61,25 @@ def stashes():
         'stashes': sensu.get_stashes(),
     }
     return render_template('admin/stashes.html', **ctx)
+
+@bp.route('/stash/', methods=['POST'])
+@login_required
+def stash():
+    data = json.loads(request.data)
+    key = data.get('key', None)
+    desc = data.get('description', '')
+    if key:
+        sensu.create_stash(key, desc)
+        flash("{0}: {1}".format(messages.STASH_CREATED, key), 'success')
+    return jsonify({'status': 'ok'})
+
+@bp.route('/stash/delete/', methods=['POST'])
+@login_required
+def delete_stash():
+    data = json.loads(request.data)
+    key = data.get('key', None)
+    if key:
+        sensu.delete_stash(key)
+        flash(messages.STASH_DELETED, 'success')
+    return jsonify({'status': 'ok'})
+

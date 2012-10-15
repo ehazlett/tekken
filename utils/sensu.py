@@ -35,6 +35,7 @@ def _request(path='', method='get', data=None, username=None):
     methods = {
         'get': requests.get,
         'post': requests.post,
+        'delete': requests.delete,
     }
     url = '{0}{1}'.format(URL_BASE.format(current_app.config.get('SENSU_API_URL')), path)
     return methods[method](url, data=json.dumps(data), headers=headers)
@@ -98,3 +99,49 @@ def get_stashes():
     except:
         data = {}
     return data
+
+def get_stash(key):
+    """
+    Gets the specified Sensu stash
+
+    """
+    r = _request('/stashes/{0}'.format(key))
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
+def create_stash(key=None, description=''):
+    """
+    Creates a Sensu stash
+
+    :param key: Stash key
+    :param description: Stash description
+
+    """
+    payload = {
+        'key': key,
+        'description': description,
+    }
+    r = _request('/stashes/{0}'.format(key), method='post', data=payload)
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
+def delete_stash(key=None):
+    """
+    Deletes a Sensu stash
+    
+    :param key: Stash key to delete
+
+    """
+    r = _request('/stashes/{0}'.format(key), method='delete')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+

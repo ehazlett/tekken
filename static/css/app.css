@@ -74,9 +74,12 @@ hide {
 .alert {
   position: fixed;
   overflow: visible;
-  top: 45px;
-  left: 0;
+  top: 15px;
+  left: 25%;
   right: 0;
+  width: 50%;
+  margin: 0 auto 0 auto;
+  text-align: center;
   z-index: 9999;
   margin: 0 5px 0 5px;
   padding-top: 10px;

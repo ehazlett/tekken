@@ -70,7 +70,6 @@
         "key": key,
         "description": "Tekken stash"
       }
-      console.log(data);
       $.ajax({
         type: 'POST',
         url: "{{url_for('admin.stash')}}",
@@ -78,7 +77,7 @@
         data: JSON.stringify(payload),
         success: function() {
           // redirect
-          window.location.replace("{{url_for('admin.stashes')}}");
+          window.location.replace("{{url_for('admin.index')}}");
         }
       });
     }

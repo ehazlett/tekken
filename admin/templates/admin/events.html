@@ -44,7 +44,7 @@
       }
       $.ajax({
         type: 'POST',
-        url: '{{sensu_api_url}}/event/resolve',
+        url: "{{url_for('admin.resolve_event')}}",
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function() {

@@ -10,6 +10,7 @@
         <th class="hidden-phone">{{_('Host')}}</th>
         <th>{{_('Last Checkin')}}</th>
         <th>{{_('Subscriptions')}}</th>
+        <th></th>
       </tr>
     </thead>
     {% endif %}
@@ -19,6 +20,9 @@
         <td class="hidden-phone">{{client.address}}</td>
         <td>{{client.timestamp|date_from_timestamp}}</td>
         <td>{{client.subscriptions|join(', ')}}</td>
+        <td width="5%">
+          <a class="btn-delete-client" rel="tooltip" title="{{_('Delete')}}" data-name="{{client.name}}"><i class="icon-trash"></i></a>
+        </td>
     </tr>
     {% else %}
     <tr><td>{{_('There are no clients.')}}</td></tr>
@@ -27,8 +31,32 @@
 </div>
 
 <script type="text/javascript">
- $(function(){
-  $("li#admin-nav-clients").addClass('active');
- });
+  $("a.btn-delete-client").click(function(){
+    var name = $(this).attr('data-name');
+    if (confirm("{{_('Delete client?')}}")) {
+      var data = {
+        "name": this.getAttribute('data-name'),
+      }
+      $.ajax({
+        type: 'POST',
+        url: "{{url_for('admin.delete_client')}}",
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function() {
+          // redirect
+          window.location.replace("{{url_for('admin.clients')}}");
+        },
+        error: function() {
+          // sensu returns a 202 which jquery apparently doesn't mark as "success"
+          // redirect anyway
+          window.location.replace("{{url_for('admin.clients')}}");
+        }
+      });
+    }
+    return false;
+  });
+  $(function(){
+   $("li#admin-nav-clients").addClass('active');
+  });
 </script>
 {% endblock %}

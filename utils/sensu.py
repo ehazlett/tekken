@@ -64,12 +64,45 @@ def get_events():
         data = {}
     return data
 
+def resolve_event(client=None, check=None):
+    """
+    Resolves a Sensu event
+
+    :param client: Client name
+    :param check: Sensu check
+
+    """
+    payload = {
+        'client': client,
+        'check': check,
+    }
+    r = _request('/event/resolve', method='post', data=payload)
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
 def get_clients():
     """
     Gets the Sensu clients
 
     """
     r = _request('/clients')
+    try:
+        data = json.loads(r.content)
+    except:
+        data = {}
+    return data
+
+def delete_client(name=None):
+    """
+    Deletes a Sensu client
+    
+    :param name: Client name
+
+    """
+    r = _request('/clients/{0}'.format(name), method='delete')
     try:
         data = json.loads(r.content)
     except:

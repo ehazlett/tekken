@@ -22,14 +22,14 @@ CACHE_TYPE = 'simple'
 LOG_LEVEL = logging.DEBUG
 if os.environ.has_key('VCAP_SERVICES'):
     cfg = json.loads(os.environ.get('VCAP_SERVICES'))
-    mdb = cfg.get('mongodb-1.8', {})
+    mdb = cfg.get('mongodb-2.0', {})
     mdb_creds = mdb[0].get('credentials', {})
     MONGO_HOST = mdb_creds.get('hostname')
     MONGO_PORT = mdb_creds.get('port')
     MONGO_DBNAME = mdb_creds.get('db')
     MONGO_USERNAME = mdb_creds.get('username')
     MONGO_PASSWORD = mdb_creds.get('password')
-    rds = cfg.get('redis-2.2', {})
+    rds = cfg.get('redis-2.6', {})
     rds_creds = rds[0].get('credentials', {})
     REDIS_HOST = rds_creds.get('hostname')
     REDIS_PORT = rds_creds.get('port')

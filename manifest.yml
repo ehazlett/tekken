@@ -1,18 +1,18 @@
 ---
 applications:
-  .:
-    name: tekken
-    framework:
-      name: wsgi
-      info:
-        mem: 64M
-        description: Python WSGI Application
-        exec: 
-    url: ${name}.${target-base}
-    mem: 64M
-    instances: 1
-    services:
-      mongodb-tekken:
-        type: mongodb
-      redis-tekken:
-        type: redis
+- name: tekken
+  framework: wsgi
+  runtime: python2
+  memory: 64M
+  instances: 1
+  url: tekken.${target-base}
+  path: .
+  services:
+    mongodb-tekken:
+      vendor: mongodb
+      version: '2.0'
+      tier: free
+    redis-tekken:
+      vendor: redis
+      version: '2.6'
+      tier: free

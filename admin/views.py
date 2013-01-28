@@ -38,6 +38,17 @@ def events():
     }
     return render_template('admin/events.html', **ctx)
 
+@bp.route('/events/resolve/', methods=['POST'])
+@login_required
+def resolve_event():
+    data = json.loads(request.data)
+    client = data.get('client', None)
+    check = data.get('check', None)
+    if client and check:
+        sensu.resolve_event(client, check)
+        flash(messages.EVENT_RESOLVED, 'success')
+    return redirect(url_for('admin.events'))
+
 @bp.route('/clients/')
 @login_required
 def clients():
@@ -45,6 +56,16 @@ def clients():
         'clients': sensu.get_clients(),
     }
     return render_template('admin/clients.html', **ctx)
+
+@bp.route('/clients/delete/', methods=['POST'])
+@login_required
+def delete_client():
+    data = json.loads(request.data)
+    name = data.get('name', None)
+    if name:
+        r = sensu.delete_client(name)
+        flash(messages.CLIENT_DELETED, 'info')
+    return redirect(url_for('admin.clients'))
 
 @bp.route('/checks/')
 @login_required
@@ -82,4 +103,3 @@ def delete_stash():
         sensu.delete_stash(key)
         flash(messages.STASH_DELETED, 'success')
     return jsonify({'status': 'ok'})
-

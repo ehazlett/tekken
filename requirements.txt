@@ -16,8 +16,6 @@ celery==3.0.7
 kombu==2.4.3
 pymongo==2.2.1
 python-dateutil==1.5
-pytz==2012d
 redis==2.6.0
 requests==0.13.5
 speaklater==1.3
-wsgiref==0.1.2

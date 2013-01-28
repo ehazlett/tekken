@@ -15,7 +15,9 @@
 from flaskext.babel import gettext
 
 ACCESS_DENIED = gettext('Access denied')
+CLIENT_DELETED = gettext('Client deleted.  It may take a moment to refresh.')
 ERROR_CREATING_USER = gettext('There was an error creating the account.')
+EVENT_RESOLVED = gettext('Event resolved.')
 EXISTING_USER = gettext('There is already a user registered with that username.')
 INVALID_USERNAME_PASSWORD = gettext('Invalid or unspecified username or password')
 LOGGED_OUT = gettext('You are now logged out')
